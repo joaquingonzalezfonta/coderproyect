@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: beige;
 }
 
 .principalTitle {
@@ -16,5 +15,111 @@
 
     .principalParagraph {
         text-align: center;
+    }
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+
+    .formSubcontainer {
+        display: flex;
+        border: 3px solid #235347;
+        background-color: #8eb69b;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        text-align: center;
+        padding: 5px 20px;
+        border-radius: 5px;
+
+
+        .formSections {
+            margin-top: 15px;
+            
+            label {
+                margin-bottom: 5px;
+            }
+
+            input {
+                border-radius: 5px;
+                border: 1px solid #235347;
+                padding: 0 3px;
+                font-size: 15px;
+            }
+
+            button {
+                padding: 5px 10px;
+                background-color: #235347;
+                color: white;
+                border-radius: 5px;
+                border: 1px solid #235347;
+                margin: 0 0 10px 0;
+            }
+        }
+    }
+}
+
+.navbar-container {
+    width: 100%;
+    display: flex;
+    color: white;
+    background-color: #8eb69b;
+    justify-content: space-between;
+    height: 60px;
+    padding: 1rem;
+    position: relative;
+
+    .navbar-sections {
+        font-weight: bold;
+        font-size: 1rem;
+
+        p {
+            margin-left: 5px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        ul {
+            display: flex;
+            margin-bottom: 0;
+            ;
+
+            .categories-sections {
+                padding: 0px 30px;
+                list-style: none;
+                cursor: pointer;
+                transition: 0.3s;
+
+                &:hover {
+                    color: #235347;
+                }
+            }
+        }
+    }
+}
+
+.widget-container {
+    margin-right: 10px;
+    cursor: pointer;
+
+    .widget {
+        margin-right: 10px;
+        display: flex;
+    }
+
+    .widget-number {
+        background-color: #235347;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        position: relative;
+        top: -10px;
+        right: -10px;
+
+        p {
+            font-size: 10px;
+            color: white;
+        }
     }
 }
