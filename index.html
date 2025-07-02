@@ -30,7 +30,10 @@
                 </ul>
             </div>
             <div class="navbar-sections">
-                <div class="widget-container">
+                <div class="nombreUsuario">
+                    <p id="nombreUsuario"> Usuario </p>
+                </div>
+                <div id="btn-carrito" class="widget-container">
                     <div class="widget">
                         🛒
                     </div>
@@ -52,42 +55,55 @@
             <div class="formSubcontainer">
                 <div class="formSections">
                     <div class="labelContainer">
-                        <label for=""> Nombre </label>
+                        <label for="nombre"> Nombre </label>
                     </div>
                     <div class="inputContainer">
-                        <input type="text">
+                        <input id="nombre" name="nombre" type="text">
                     </div>
                 </div>
                 <div class="formSections">
                     <div class="labelContainer">
-                        <label for=""> Edad </label>
+                        <label for="edad"> Edad </label>
                     </div>
                     <div class="inputContainer">
-                        <input type="text">
+                        <input id="inputedad" name="edad" type="number">
                     </div>
                 </div>
                 <div class="formSections">
                     <div class="labelContainer">
-                        <label for=""> Cantidad de pasajeros </label>
+                        <label for="pasajeros"> Cantidad de pasajeros </label>
                     </div>
                     <div class="inputContainer">
-                        <input type="text">
+                        <input id="pasajeros" name="pasajeros" type="number">
                     </div>
                 </div>
                 <div class="formSections">
                     <div class="labelContainer">
-                        <label for=""> Presupuesto limite </label>
+                        <label for="presupuesto"> Presupuesto limite </label>
                     </div>
                     <div class="inputContainer">
-                        <input type="text">
+                        <input id="presupuesto" name="presupuesto" type="number">
                     </div>
                 </div>
                 <div class="formSections">
                     <div class="buttonsContainer">
-                        <button> Guardar </button>
+                        <button id="guardar"> Guardar </button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="cardsContainer">
+
+        </div>
+
+        <div id="overlay" class="oculto"></div>
+
+        <div id="carrito" class="oculto">
+            <h2> Carrito de compras </h2>
+            <ul id="lista-carrito">
+                <li class="productoAgregado" id="productoAgregado"></li>
+            </ul>
+            <button id="cerrar-carrito">Cerrar</button>
         </div>
     </main>
     <footer>

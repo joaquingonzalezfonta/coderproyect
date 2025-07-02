@@ -6,6 +6,7 @@
 .principalTitle {
     padding-top: 15px;
     text-align: center;
+    color: #235347;
 }
 
 .paragraphContainer {
@@ -36,7 +37,7 @@
 
         .formSections {
             margin-top: 15px;
-            
+
             label {
                 margin-bottom: 5px;
             }
@@ -73,6 +74,7 @@
     .navbar-sections {
         font-weight: bold;
         font-size: 1rem;
+        display: flex;
 
         p {
             margin-left: 5px;
@@ -120,6 +122,106 @@
         p {
             font-size: 10px;
             color: white;
+        }
+    }
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+#carrito {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 0 1px black;
+    z-index: 20;
+}
+
+.oculto {
+    display: none;
+}
+
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .cardContainer {
+        margin: 10px;
+        border: 3px solid #8eb69b;
+        border-radius: 5px;
+        width: 300px;
+        /* display: flex; */
+
+        .imgCardContainer {
+            padding: 5px 5px 0px 5px;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .bodyCardContainer {
+            padding: 0px 5px 5px 5px;
+
+            .titleCardContainer {
+                display: flex;
+                justify-content: center;
+
+                h4 {
+                    color: #235347;
+                    height: 60px;
+                    text-align: center;
+                }
+            }
+
+            .descriptionCardContainer {
+                display: flex;
+                justify-content: center;
+                padding: 5px;
+                text-align: center;
+
+                p {
+                    margin-bottom: 0px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+
+            .buttonCardContainer {
+                display: flex;
+                justify-content: center;
+                margin: 5px 0px;
+
+                .buttonCard {
+                    background-color: #8eb69b;
+                    color: white;
+                    padding: 5px;
+                    border-radius: 5px;
+                    border: 1px solid #8eb69b;
+                    transition: 0.3s;
+
+                    &:hover {
+                        background-color: #235347;
+                        border: 1px solid #235347;
+                    }
+                }
+            }
         }
     }
 }
