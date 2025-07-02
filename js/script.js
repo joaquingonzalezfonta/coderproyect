@@ -13,6 +13,7 @@ const nombreGuardado = localStorage.getItem("Nombre")
         nombreUsuario.textContent = nombreGuardado
     }
 
+// Logica del boton "guardar" del formulario
 buttonGuardar.addEventListener("click", () => {
     const nuevoNombre = inputNombre.value
     const edad = parseInt(edadInput.value);
@@ -63,6 +64,8 @@ buttonGuardar.addEventListener("click", () => {
 
 })
 
+
+// Funcion de filtrado
 function filtroPorPresupuesto(edad, presupuesto) {
 
 
@@ -96,6 +99,7 @@ function filtroPorPresupuesto(edad, presupuesto) {
     console.log("Estos son los paquetes para el presupuesto: ", paquetesFiltrados)
 }
 
+// Funcion para mostrar los paquetes
 function mostrarPaquetes(edad) {
     if (edad >= 18) {
         console.log("Podes entrar a ver los paquetes")
@@ -110,7 +114,7 @@ function mostrarPaquetes(edad) {
     }
 }
 
-
+// Funcion para calcular precio
 function calcularPrecioPaquetes(paquetesViajes, pasajeros) {
     const resultado = paquetesViajes.map(paquete => {
         return {
@@ -124,9 +128,10 @@ function calcularPrecioPaquetes(paquetesViajes, pasajeros) {
     console.table(resultado)
 }
 
-
+// Destinos
 let destinos = ["Canada", "Estados Unidos", "Francia", "Italia", "China", "Portugal", "Brasil"]
 
+// Array de paquete de viajes
 let paquetesViajes = [
     {
         pais: "Canada",
@@ -178,7 +183,6 @@ let paquetesViajes = [
     }
 ]
 
-
 let paquetesViajes2 = paquetesViajes.push(
     {
         pais: "Brasil",
@@ -190,50 +194,10 @@ let paquetesViajes2 = paquetesViajes.push(
     }
 )
 
-// // Referencia al contenedor
-// const container = document.querySelector(".cardsContainer");
 
-// // Recorremos y generamos un bloque HTML por cada paquete
-// paquetesViajes.forEach(paquete => {
-//     container.innerHTML += `
-//     <div class="cardContainer">
-//         <div class="imgCardContainer">
-//             <img src="https://via.placeholder.com/300x200" alt="${paquete.pais}" />
-//         </div>
-//         <div class="bodyCardContainer">
-//             <div class="titleCardContainer">
-//                 <h4 class="nombreProducto" >${paquete.pais} - ${paquete.localidad}</h4>
-//             </div>
-//             <div class="descriptionCardContainer">
-//                 <p>
-//                     Estadia: ${paquete.estadia}<br>
-//                     Excursión: ${paquete.excursion}<br>
-//                     Precio: $${paquete.precio}
-//                 </p>
-//             </div>
-//             <div class="buttonCardContainer">
-//                 <button class="buttonCard"> Agregar </button>
-//             </div>
-//         </div>
-//     </div>
-//     `;
-// });
-
-// const itemListaCarrito = document.querySelectorAll('.productoAgregado')
-// const btnAgregarAlCarrito = document.querySelectorAll('.buttonCard')
-// const nombreProducto = document.querySelectorAll('.nombreProducto')
-
-
-// btnAgregarAlCarrito.addEventListener('click', (evt) => {
-//     const nuevoProducto = document.createElement("li");
-//     nuevoProducto.textContent = nombreProducto.textContent;
-//     itemListaCarrito.appendChild(nuevoProducto)
-
-// })
-
+// Imprimir todos los paquetes en cards
 const container = document.querySelector(".cardsContainer");
 
-// Recorremos y generamos un bloque HTML por cada paquete
 paquetesViajes.forEach(paquete => {
     container.innerHTML += `
     <div class="cardContainer">
@@ -259,20 +223,14 @@ paquetesViajes.forEach(paquete => {
     `;
 });
 
-// Seleccionamos todos los botones
+// Agregando los productos al carrito
 const btnsAgregar = document.querySelectorAll('.buttonCard');
 
-// Contenedor donde vas a poner la lista del carrito
-// Este debe estar en tu HTML:
-// const itemListaCarrito = document.querySelector('#productoAgregado');
-
-// Para cada botón, asignamos su evento
 btnsAgregar.forEach(boton => {
     boton.addEventListener('click', (evt) => {
-        // Buscamos el <h4> más cercano
+
         const nombreProducto = boton.closest('.bodyCardContainer').querySelector('.nombreProducto');
 
-        // Creamos el nuevo <li>
         const nuevoProducto = document.createElement("li");
         nuevoProducto.textContent = nombreProducto.textContent;
 
@@ -291,9 +249,6 @@ btnsAgregar.forEach(boton => {
             
         }
         
-
-        
-        // Lo agregamos a la lista
         listaCarrito.appendChild(nuevoProducto);
     });
     
@@ -310,9 +265,7 @@ const listaCarrito = document.querySelector("#lista-carrito")
             })
 
 
-
-
-
+// Agregando funcionalidad y diseño al carrito
 const btnCarrito = document.getElementById('btn-carrito');
 const carrito = document.getElementById('carrito');
 const overlay = document.getElementById('overlay');
@@ -323,13 +276,11 @@ btnCarrito.addEventListener('click', () => {
     overlay.classList.remove('oculto');
 });
 
-// Cerrar al hacer clic en "Cerrar"
 cerrarCarrito.addEventListener('click', () => {
     carrito.classList.add('oculto');
     overlay.classList.add('oculto');
 });
 
-// También cerrar si haces clic en el fondo
 overlay.addEventListener('click', () => {
     carrito.classList.add('oculto');
     overlay.classList.add('oculto');
