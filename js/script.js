@@ -8,13 +8,35 @@ const tituloPrincipal = document.querySelector('.principalTitle')
 
 const nuevaEdad = edadInput.value
 
+const nombreGuardado = localStorage.getItem("Nombre")
+    if (nombreGuardado) {
+        nombreUsuario.textContent = nombreGuardado
+    }
+
 buttonGuardar.addEventListener("click", () => {
     const nuevoNombre = inputNombre.value
     const edad = parseInt(edadInput.value);
     const presupuesto = parseInt(inputPresupuesto.value)
     const pasajeros = parseInt(inputPasajeros.value)
 
-    nombreUsuario.textContent = nuevoNombre
+    // Informacion guardada en localStorage
+    if (nuevoNombre) {
+        localStorage.setItem("Nombre", nuevoNombre)
+        nombreUsuario.textContent = nuevoNombre
+    }
+
+    if (edad) {
+        localStorage.setItem("Edad", edad)
+    }
+
+    if (presupuesto) {
+        localStorage.setItem("Presupuesto", presupuesto)
+    }
+
+    if (pasajeros) {
+        localStorage.setItem("Pasajeros", pasajeros)
+    }
+
     tituloPrincipal.textContent = "Bien hecho, estas mas cerca del viaje!"
     inputNombre.value = '';
     edadInput.value = '';
@@ -111,6 +133,7 @@ let paquetesViajes = [
         localidad: "Vancouver",
         estadia: "Cabaña",
         excursion: "Kayak",
+        img: "https://content.r9cdn.net/rimg/dimg/75/66/ee80acca-city-6668-16682a32985.jpg?width=1366&height=768&xhint=2877&yhint=2104&crop=true",
         precio: 1250
     },
     {
@@ -118,6 +141,7 @@ let paquetesViajes = [
         localidad: "New York",
         estadia: "Hotel",
         excursion: "Visita a museo",
+        img: "https://res.cloudinary.com/dtljonz0f/image/upload/f_auto/q_auto/v1/gc-v1/new-york/Times-Square.jpg",
         precio: 1540
     },
     {
@@ -125,6 +149,7 @@ let paquetesViajes = [
         localidad: "Paris",
         estadia: "Hotel",
         excursion: "Visita a torre Eifel",
+        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1200&h=-1&s=1",
         precio: 2300
     },
     {
@@ -132,6 +157,7 @@ let paquetesViajes = [
         localidad: "Roma",
         estadia: "Hotel",
         excursion: "Visita a coliseo romano",
+        img: "https://content-viajes.nationalgeographic.com.es/medio/2024/09/13/coliseo_37c26845_240913142611_1200x800.jpg",
         precio: 2125
     },
     {
@@ -139,6 +165,7 @@ let paquetesViajes = [
         localidad: "Shanhaiguan",
         estadia: "Cabaña",
         excursion: "Visita a la Gran Muralla China",
+        img: "https://millasxelmundo.com/wp-content/uploads/2024/03/China-portada.jpg",
         precio: 3000
     },
     {
@@ -146,6 +173,7 @@ let paquetesViajes = [
         localidad: "Lisboa",
         estadia: "Hotel",
         excursion: "Snorkel",
+        img: "https://content-viajes.nationalgeographic.com.es/medio/2024/11/07/alfama_151256d3_241107153719_1200x800.webp",
         precio: 1700
     }
 ]
@@ -157,6 +185,7 @@ let paquetesViajes2 = paquetesViajes.push(
         localidad: "Rio de Janeiro",
         estadia: "Departamento",
         excursion: "Waterboard",
+        img: "https://i.content4travel.com/seeplaces/temp/9ecc4378-3201-4070-89e8-de66534c9d9c.jpg",
         precio: 800
     }
 )
@@ -209,7 +238,7 @@ paquetesViajes.forEach(paquete => {
     container.innerHTML += `
     <div class="cardContainer">
         <div class="imgCardContainer">
-            <img src="https://via.placeholder.com/300x200" alt="${paquete.pais}" />
+            <img src="${paquete.img}" alt="${paquete.pais}" />
         </div>
         <div class="bodyCardContainer">
             <div class="titleCardContainer">
@@ -235,7 +264,7 @@ const btnsAgregar = document.querySelectorAll('.buttonCard');
 
 // Contenedor donde vas a poner la lista del carrito
 // Este debe estar en tu HTML:
-const itemListaCarrito = document.querySelector('#productoAgregado');
+// const itemListaCarrito = document.querySelector('#productoAgregado');
 
 // Para cada botón, asignamos su evento
 btnsAgregar.forEach(boton => {
@@ -247,27 +276,38 @@ btnsAgregar.forEach(boton => {
         const nuevoProducto = document.createElement("li");
         nuevoProducto.textContent = nombreProducto.textContent;
 
+        const producto = nombreProducto.textContent
+        
+        if (producto) {
+            
+            let carrito = JSON.parse(localStorage.getItem("productoCarrito")) || [];
+
+            carrito.push(producto)
+
+            localStorage.setItem("productoCarrito", JSON.stringify(carrito));
+
+            console.log("Producto agregado:", producto);
+            console.log("Carrito actual:", carrito);
+            
+        }
+        
+
+        
         // Lo agregamos a la lista
-        itemListaCarrito.appendChild(nuevoProducto);
+        listaCarrito.appendChild(nuevoProducto);
     });
+    
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const listaCarrito = document.querySelector("#lista-carrito")
+            
+            let productosEnCarrito = JSON.parse(localStorage.getItem("productoCarrito")) || [];
+        
+            productosEnCarrito.forEach(producto => {
+                const li = document.createElement("li");
+                li.textContent = producto;
+                listaCarrito.appendChild(li)
+            })
 
 
 
