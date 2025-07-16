@@ -1,56 +1,59 @@
+// --- Variables DOM ---
 const inputNombre = document.querySelector('#nombre');
 const buttonGuardar = document.querySelector('#guardar');
-const nombreUsuario = document.querySelector('#nombreUsuario')
-const edadInput = document.querySelector('#inputedad')
-const inputPresupuesto = document.querySelector('#presupuesto')
-const inputPasajeros = document.querySelector('#pasajeros')
-const tituloPrincipal = document.querySelector('.principalTitle')
+const nombreUsuario = document.querySelector('#nombreUsuario');
+const edadInput = document.querySelector('#inputedad');
+const inputPresupuesto = document.querySelector('#presupuesto');
+const inputPasajeros = document.querySelector('#pasajeros');
+const tituloPrincipal = document.querySelector('.principalTitle');
+const container = document.querySelector(".cardsContainer");
 
-const nuevaEdad = edadInput.value
+// --- Variables globales ---
+let paquetesViajes = [];
+let destinos = ["Canada", "Estados Unidos", "Francia", "Italia", "China", "Portugal", "Brasil"];
+let productosEnCarrito = JSON.parse(localStorage.getItem("productoCarrito")) || [];
 
-const nombreGuardado = localStorage.getItem("Nombre")
-    if (nombreGuardado) {
-        nombreUsuario.textContent = nombreGuardado
-    }
+// --- Cargar paquetes desde JSON al iniciar ---
+fetch('paquetes.json')
+    .then(response => response.json())
+    .then(data => {
+        paquetesViajes = data;
+        console.log("Paquetes cargados:", paquetesViajes);
+    })
+    .catch(error => console.error("Error al cargar los paquetes:", error));
 
-// Logica del boton "guardar" del formulario
+// --- Persistencia nombre ---
+const nombreGuardado = localStorage.getItem("Nombre");
+if (nombreGuardado) {
+    nombreUsuario.textContent = nombreGuardado;
+}
+
 buttonGuardar.addEventListener("click", () => {
-    const nuevoNombre = inputNombre.value
+    const nuevoNombre = inputNombre.value;
     const edad = parseInt(edadInput.value);
-    const presupuesto = parseInt(inputPresupuesto.value)
-    const pasajeros = parseInt(inputPasajeros.value)
+    const presupuesto = parseInt(inputPresupuesto.value);
+    const pasajeros = parseInt(inputPasajeros.value);
 
-    // Informacion guardada en localStorage
     if (nuevoNombre) {
-        localStorage.setItem("Nombre", nuevoNombre)
-        nombreUsuario.textContent = nuevoNombre
+        localStorage.setItem("Nombre", nuevoNombre);
+        nombreUsuario.textContent = nuevoNombre;
     }
 
-    if (edad) {
-        localStorage.setItem("Edad", edad)
-    }
+    if (edad) localStorage.setItem("Edad", edad);
+    if (presupuesto) localStorage.setItem("Presupuesto", presupuesto);
+    if (pasajeros) localStorage.setItem("Pasajeros", pasajeros);
 
-    if (presupuesto) {
-        localStorage.setItem("Presupuesto", presupuesto)
-    }
-
-    if (pasajeros) {
-        localStorage.setItem("Pasajeros", pasajeros)
-    }
-
-    tituloPrincipal.textContent = "Bien hecho, estas mas cerca del viaje!"
+    tituloPrincipal.textContent = "Bien hecho, estas mas cerca del viaje!";
     inputNombre.value = '';
     edadInput.value = '';
     inputPresupuesto.value = '';
     inputPasajeros.value = '';
-
 
     if (isNaN(edad)) {
         console.log("Por favor ingresa una edad válida.");
         return;
     }
 
-    mostrarPaquetes(edad);
     filtroPorPresupuesto(edad, presupuesto);
 
     if (edad >= 18) {
@@ -59,213 +62,166 @@ buttonGuardar.addEventListener("click", () => {
             return;
         }
         calcularPrecioPaquetes(paquetesViajes, pasajeros);
+    } else {
+        mostrarDestinos();
+    }
+});
+
+function validarInputs() {
+    buttonGuardar.disabled = !(
+        inputNombre.value.trim() &&
+        edadInput.value.trim() &&
+        inputPresupuesto.value.trim() &&
+        inputPasajeros.value.trim()
+    );
+}
+
+[inputNombre, edadInput, inputPresupuesto, inputPasajeros].forEach(input => {
+    input.addEventListener('input', validarInputs);
+});
+
+function filtroPorPresupuesto(edad, presupuesto) {
+    if (isNaN(presupuesto)) {
+        console.log("Por favor ingrese un presupuesto válido");
+        return;
     }
 
+    let paquetesFiltrados = paquetesViajes.filter(paquete => {
+        if (presupuesto <= 1000) return paquete.precio <= 1000;
+        if (presupuesto <= 2000) return paquete.precio <= 2000;
+        if (presupuesto <= 3000) return paquete.precio <= 3000;
+        return true;
+    });
 
-})
-
-
-// Funcion de filtrado
-function filtroPorPresupuesto(edad, presupuesto) {
-
-
+    container.innerHTML = '';
 
     if (edad < 18) {
-        console.log("Sos menor de edad, no puedes reservar paquetes")
-        return;
-    }
+        Swal.fire({
+            title: "Eres menor de edad",
+            text: "Solo podrás ver los destinos disponibles",
+            icon: "info"
+        });
 
-    if (isNaN(presupuesto)) {
-        console.log("Por favor ingrese un presupuesto valido")
-        return;
-    }
-
-    let paquetesFiltrados = []
-
-    if (presupuesto <= 1000) {
-        paquetesFiltrados = paquetesViajes.filter(paquetesViajes => paquetesViajes.precio <= 1000)
-
-    } else if (presupuesto <= 2000) {
-        paquetesFiltrados = paquetesViajes.filter(paquetesViajes => paquetesViajes.precio <= 2000)
-
-    } else if (presupuesto <= 3000) {
-        paquetesFiltrados = paquetesViajes.filter(paquetesViajes => paquetesViajes.precio <= 3000)
+        paquetesViajes.forEach(paquete => {
+            container.innerHTML += renderCard(paquete, false);
+        });
 
     } else {
-        paquetesFiltrados = paquetesViajes;
-
-    }
-
-    console.log("Estos son los paquetes para el presupuesto: ", paquetesFiltrados)
-}
-
-// Funcion para mostrar los paquetes
-function mostrarPaquetes(edad) {
-    if (edad >= 18) {
-        console.log("Podes entrar a ver los paquetes")
-        console.log(paquetesViajes)
-    } else {
-        console.log("Sos menor, solo podes ver los destinos")
-        let idx = 1
-        for (let pais of destinos) {
-            console.log(idx + ". " + pais)
-            idx++;
-        }
+        paquetesFiltrados.forEach(paquete => {
+            container.innerHTML += renderCard(paquete, true);
+        });
+        activarBotonesAgregar();
     }
 }
 
-// Funcion para calcular precio
-function calcularPrecioPaquetes(paquetesViajes, pasajeros) {
-    const resultado = paquetesViajes.map(paquete => {
-        return {
-            pais: paquete.pais,
-            precioPorPersona: paquete.precio,
-            pasajeros: pasajeros,
-            precioTotal: paquete.precio * pasajeros
-        };
-    });
-
-    console.table(resultado)
-}
-
-// Destinos
-let destinos = ["Canada", "Estados Unidos", "Francia", "Italia", "China", "Portugal", "Brasil"]
-
-// Array de paquete de viajes
-let paquetesViajes = [
-    {
-        pais: "Canada",
-        localidad: "Vancouver",
-        estadia: "Cabaña",
-        excursion: "Kayak",
-        img: "https://content.r9cdn.net/rimg/dimg/75/66/ee80acca-city-6668-16682a32985.jpg?width=1366&height=768&xhint=2877&yhint=2104&crop=true",
-        precio: 1250
-    },
-    {
-        pais: "Estados Unidos",
-        localidad: "New York",
-        estadia: "Hotel",
-        excursion: "Visita a museo",
-        img: "https://res.cloudinary.com/dtljonz0f/image/upload/f_auto/q_auto/v1/gc-v1/new-york/Times-Square.jpg",
-        precio: 1540
-    },
-    {
-        pais: "Francia",
-        localidad: "Paris",
-        estadia: "Hotel",
-        excursion: "Visita a torre Eifel",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1200&h=-1&s=1",
-        precio: 2300
-    },
-    {
-        pais: "Italia",
-        localidad: "Roma",
-        estadia: "Hotel",
-        excursion: "Visita a coliseo romano",
-        img: "https://content-viajes.nationalgeographic.com.es/medio/2024/09/13/coliseo_37c26845_240913142611_1200x800.jpg",
-        precio: 2125
-    },
-    {
-        pais: "China",
-        localidad: "Shanhaiguan",
-        estadia: "Cabaña",
-        excursion: "Visita a la Gran Muralla China",
-        img: "https://millasxelmundo.com/wp-content/uploads/2024/03/China-portada.jpg",
-        precio: 3000
-    },
-    {
-        pais: "Portugal",
-        localidad: "Lisboa",
-        estadia: "Hotel",
-        excursion: "Snorkel",
-        img: "https://content-viajes.nationalgeographic.com.es/medio/2024/11/07/alfama_151256d3_241107153719_1200x800.webp",
-        precio: 1700
-    }
-]
-
-let paquetesViajes2 = paquetesViajes.push(
-    {
-        pais: "Brasil",
-        localidad: "Rio de Janeiro",
-        estadia: "Departamento",
-        excursion: "Waterboard",
-        img: "https://i.content4travel.com/seeplaces/temp/9ecc4378-3201-4070-89e8-de66534c9d9c.jpg",
-        precio: 800
-    }
-)
-
-
-// Imprimir todos los paquetes en cards
-const container = document.querySelector(".cardsContainer");
-
-paquetesViajes.forEach(paquete => {
-    container.innerHTML += `
-    <div class="cardContainer">
-        <div class="imgCardContainer">
-            <img src="${paquete.img}" alt="${paquete.pais}" />
-        </div>
-        <div class="bodyCardContainer">
-            <div class="titleCardContainer">
-                <h4 class="nombreProducto">${paquete.pais} - ${paquete.localidad}</h4>
+function renderCard(paquete, mostrarDetalles) {
+    return `
+        <div class="cardContainer">
+            <div class="imgCardContainer">
+                <img src="${paquete.img}" alt="${paquete.pais}" />
             </div>
-            <div class="descriptionCardContainer">
-                <p>
-                    Estadia: ${paquete.estadia}<br>
-                    Excursión: ${paquete.excursion}<br>
-                    Precio: $${paquete.precio}
-                </p>
-            </div>
-            <div class="buttonCardContainer">
-                <button class="buttonCard">Agregar</button>
+            <div class="bodyCardContainer">
+                <div class="titleCardContainer">
+                    <h4 class="nombreProducto">${paquete.pais} - ${paquete.localidad}</h4>
+                </div>
+                ${mostrarDetalles ? `
+                <div class="descriptionCardContainer">
+                    <p>
+                        Estadia: ${paquete.estadia}<br>
+                        Excursión: ${paquete.excursion}<br>
+                        Precio: $${paquete.precio}
+                    </p>
+                </div>
+                <div class="buttonCardContainer">
+                    <button class="buttonCard">Agregar</button>
+                </div>
+                ` : ''}
             </div>
         </div>
-    </div>
     `;
-});
+}
 
-// Agregando los productos al carrito
-const btnsAgregar = document.querySelectorAll('.buttonCard');
+function mostrarDestinos() {
+    destinos.forEach((pais, idx) => console.log(`${idx + 1}. ${pais}`));
+}
 
-btnsAgregar.forEach(boton => {
-    boton.addEventListener('click', (evt) => {
+function calcularPrecioPaquetes(paquetes, pasajeros) {
+    const resultado = paquetes.map(paquete => ({
+        pais: paquete.pais,
+        precioPorPersona: paquete.precio,
+        pasajeros,
+        precioTotal: paquete.precio * pasajeros
+    }));
 
-        const nombreProducto = boton.closest('.bodyCardContainer').querySelector('.nombreProducto');
+    console.table(resultado);
+}
 
-        const nuevoProducto = document.createElement("li");
-        nuevoProducto.textContent = nombreProducto.textContent;
+function actualizarContador() {
+    const total = productosEnCarrito.reduce((sum, prod) => sum + prod.cantidad, 0);
+    document.getElementById('contadorCarrito').textContent = total;
+}
 
-        const producto = nombreProducto.textContent
-        
-        if (producto) {
-            
-            let carrito = JSON.parse(localStorage.getItem("productoCarrito")) || [];
+function renderizarProductoEnCarrito(producto) {
+    const listaCarrito = document.querySelector("#lista-carrito");
+    let li = document.querySelector(`#lista-carrito li[data-product="${producto.nombre}"]`);
 
-            carrito.push(producto)
+    if (!li) {
+        li = document.createElement("li");
+        li.setAttribute('data-product', producto.nombre);
 
-            localStorage.setItem("productoCarrito", JSON.stringify(carrito));
+        li.innerHTML = `${producto.nombre} - Cantidad: <span class="cantidad">${producto.cantidad}</span> <button class="buttonCart">Eliminar</button>`;
 
-            console.log("Producto agregado:", producto);
-            console.log("Carrito actual:", carrito);
-            
-        }
-        
-        listaCarrito.appendChild(nuevoProducto);
+        li.querySelector('.buttonCart').addEventListener('click', () => eliminarProductoCarrito(producto.nombre, li));
+        listaCarrito.appendChild(li);
+    } else {
+        li.querySelector('.cantidad').textContent = producto.cantidad;
+    }
+}
+
+function eliminarProductoCarrito(nombreProducto, liElement) {
+    productosEnCarrito = productosEnCarrito.filter(p => p.nombre !== nombreProducto);
+    localStorage.setItem('productoCarrito', JSON.stringify(productosEnCarrito));
+    liElement.remove();
+    actualizarContador();
+
+    Swal.fire({ title: "Paquete eliminado", icon: "success" });
+}
+
+function activarBotonesAgregar() {
+    document.querySelectorAll('.buttonCard').forEach(boton => {
+        boton.addEventListener('click', () => {
+            const nombreProducto = boton.closest('.bodyCardContainer').querySelector('.nombreProducto').textContent.trim();
+
+            if (nombreProducto) {
+                const productoExistente = productosEnCarrito.find(p => p.nombre === nombreProducto);
+
+                if (productoExistente) {
+                    productoExistente.cantidad++;
+                } else {
+                    productosEnCarrito.push({ nombre: nombreProducto, cantidad: 1 });
+                }
+
+                localStorage.setItem('productoCarrito', JSON.stringify(productosEnCarrito));
+                renderizarProductoEnCarrito(productoExistente || { nombre: nombreProducto, cantidad: 1 });
+                actualizarContador();
+
+                Toastify({
+                    text: "Producto agregado!",
+                    gravity: "bottom",
+                    position: "right",
+                    duration: 1500,
+                    style: {
+                        background: "linear-gradient(to right, #8eb69b, #235347)"
+                    }
+                }).showToast();
+            }
+        });
     });
-    
-});
+}
 
-const listaCarrito = document.querySelector("#lista-carrito")
-            
-            let productosEnCarrito = JSON.parse(localStorage.getItem("productoCarrito")) || [];
-        
-            productosEnCarrito.forEach(producto => {
-                const li = document.createElement("li");
-                li.textContent = producto;
-                listaCarrito.appendChild(li)
-            })
+productosEnCarrito.forEach(producto => renderizarProductoEnCarrito(producto));
+actualizarContador();
 
-
-// Agregando funcionalidad y diseño al carrito
 const btnCarrito = document.getElementById('btn-carrito');
 const carrito = document.getElementById('carrito');
 const overlay = document.getElementById('overlay');
@@ -276,13 +232,12 @@ btnCarrito.addEventListener('click', () => {
     overlay.classList.remove('oculto');
 });
 
-cerrarCarrito.addEventListener('click', () => {
-    carrito.classList.add('oculto');
-    overlay.classList.add('oculto');
-});
+cerrarCarrito.addEventListener('click', cerrarCarritoOverlay);
+overlay.addEventListener('click', cerrarCarritoOverlay);
 
-overlay.addEventListener('click', () => {
+function cerrarCarritoOverlay() {
     carrito.classList.add('oculto');
     overlay.classList.add('oculto');
-});
+}
+
 

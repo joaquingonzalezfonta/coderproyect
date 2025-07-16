@@ -1,0 +1,58 @@
+[
+    {
+        "pais": "Canada",
+        "localidad": "Vancouver",
+        "estadia": "Cabaña",
+        "excursion": "Kayak",
+        "img": "https://content.r9cdn.net/rimg/dimg/75/66/ee80acca-city-6668-16682a32985.jpg?width=1366&height=768&xhint=2877&yhint=2104&crop=true",
+        "precio": 1250
+    },
+    {
+        "pais": "Estados Unidos",
+        "localidad": "New York",
+        "estadia": "Hotel",
+        "excursion": "Visita a museo",
+        "img": "https://res.cloudinary.com/dtljonz0f/image/upload/f_auto/q_auto/v1/gc-v1/new-york/Times-Square.jpg",
+        "precio": 1540
+    },
+    {
+        "pais": "Francia",
+        "localidad": "Paris",
+        "estadia": "Hotel",
+        "excursion": "Visita a torre Eiffel",
+        "img": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1200&h=-1&s=1",
+        "precio": 2300
+    },
+    {
+        "pais": "Italia",
+        "localidad": "Roma",
+        "estadia": "Hotel",
+        "excursion": "Visita al Coliseo Romano",
+        "img": "https://content-viajes.nationalgeographic.com.es/medio/2024/09/13/coliseo_37c26845_240913142611_1200x800.jpg",
+        "precio": 2125
+    },
+    {
+        "pais": "China",
+        "localidad": "Shanhaiguan",
+        "estadia": "Cabaña",
+        "excursion": "Visita a la Gran Muralla China",
+        "img": "https://millasxelmundo.com/wp-content/uploads/2024/03/China-portada.jpg",
+        "precio": 3000
+    },
+    {
+        "pais": "Portugal",
+        "localidad": "Lisboa",
+        "estadia": "Hotel",
+        "excursion": "Snorkel",
+        "img": "https://content-viajes.nationalgeographic.com.es/medio/2024/11/07/alfama_151256d3_241107153719_1200x800.webp",
+        "precio": 1700
+    },
+    {
+        "pais": "Brasil",
+        "localidad": "Rio de Janeiro",
+        "estadia": "Departamento",
+        "excursion": "Waterboard",
+        "img": "https://i.content4travel.com/seeplaces/temp/9ecc4378-3201-4070-89e8-de66534c9d9c.jpg",
+        "precio": 800
+    }
+]

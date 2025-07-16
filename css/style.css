@@ -193,6 +193,17 @@
         cursor: pointer;
     }
 }
+
+#guardar {
+    background-color: #235347;
+    border: 1px solid #235347;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: #8eb69b;
+        border: 1px solid #235347;
+    }
+}
     /* ------------- Cards ---------- */
     .cardsContainer {
         display: flex;
