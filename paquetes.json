@@ -3,6 +3,7 @@
         "pais": "Canada",
         "localidad": "Vancouver",
         "estadia": "Cabaña",
+        "continente": "America",
         "excursion": "Kayak",
         "img": "https://content.r9cdn.net/rimg/dimg/75/66/ee80acca-city-6668-16682a32985.jpg?width=1366&height=768&xhint=2877&yhint=2104&crop=true",
         "precio": 1250
@@ -11,6 +12,7 @@
         "pais": "Estados Unidos",
         "localidad": "New York",
         "estadia": "Hotel",
+        "continente": "America",
         "excursion": "Visita a museo",
         "img": "https://res.cloudinary.com/dtljonz0f/image/upload/f_auto/q_auto/v1/gc-v1/new-york/Times-Square.jpg",
         "precio": 1540
@@ -19,6 +21,7 @@
         "pais": "Francia",
         "localidad": "Paris",
         "estadia": "Hotel",
+        "continente": "Europa",
         "excursion": "Visita a torre Eiffel",
         "img": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1200&h=-1&s=1",
         "precio": 2300
@@ -27,6 +30,7 @@
         "pais": "Italia",
         "localidad": "Roma",
         "estadia": "Hotel",
+        "continente": "Europa",
         "excursion": "Visita al Coliseo Romano",
         "img": "https://content-viajes.nationalgeographic.com.es/medio/2024/09/13/coliseo_37c26845_240913142611_1200x800.jpg",
         "precio": 2125
@@ -35,6 +39,7 @@
         "pais": "China",
         "localidad": "Shanhaiguan",
         "estadia": "Cabaña",
+        "continente": "Asia",
         "excursion": "Visita a la Gran Muralla China",
         "img": "https://millasxelmundo.com/wp-content/uploads/2024/03/China-portada.jpg",
         "precio": 3000
@@ -43,16 +48,54 @@
         "pais": "Portugal",
         "localidad": "Lisboa",
         "estadia": "Hotel",
+        "continente": "Europa",
         "excursion": "Snorkel",
         "img": "https://content-viajes.nationalgeographic.com.es/medio/2024/11/07/alfama_151256d3_241107153719_1200x800.webp",
         "precio": 1700
     },
     {
-        "pais": "Brasil",
-        "localidad": "Rio de Janeiro",
-        "estadia": "Departamento",
+        "pais": "Sudafrica",
+        "localidad": "Ciudad del Cabo",
+        "estadia": "Cabaña",
+        "continente": "Africa",
         "excursion": "Waterboard",
-        "img": "https://i.content4travel.com/seeplaces/temp/9ecc4378-3201-4070-89e8-de66534c9d9c.jpg",
-        "precio": 800
+        "img": "https://www.nadiuviatges.com/wp-content/uploads/2023/01/south-africa-1982418_1920-min.jpg",
+        "precio": 2450
+    },
+    {
+        "pais": "Egipto",
+        "localidad": "El Cairo",
+        "estadia": "Hotel",
+        "continente": "Africa",
+        "excursion": "Piramides",
+        "img": "https://unhistoriador.com/wp-content/uploads/2021/04/antiguo-egipto-768x434.jpg",
+        "precio": 1800
+    },
+    {
+        "pais": "Australia",
+        "localidad": "Sidney",
+        "estadia": "Departamento",
+        "continente": "Oceania",
+        "excursion": "Opera",
+        "img": "https://media.istockphoto.com/id/535455441/es/foto/vista-del-puerto-de-s%C3%ADdney-australia.jpg?s=612x612&w=0&k=20&c=X5CHDGqdXrf-lQywszCOKGadjwXdU5Leq-EAFxm5aME=",
+        "precio": 2600
+    },
+    {
+        "pais": "Japon",
+        "localidad": "Tokio",
+        "estadia": "Cabaña",
+        "continente": "Asia",
+        "excursion": "Templo Senso-ji",
+        "img": "https://image.urlaubspiraten.de/1024/image/upload/v1603288184/mediavault_images/gaf4wre0zmzobfp0ppfn.jpg",
+        "precio": 3300
+    },
+    {
+        "pais": "Nueva Zelanda",
+        "localidad": "Auckland",
+        "estadia": "Departamento",
+        "continente": "Oceania",
+        "excursion": "Sky Tower",
+        "img": "https://media.istockphoto.com/id/1060826424/es/foto/2018-el-3-de-enero-auckland-nueva-zelanda-panorama-ver-hermoso-paisaje-del-edificio-en-la.jpg?s=612x612&w=0&k=20&c=CbyhseLyRBsaNXj_iVRse6I1yeTDNgFznjFG3gt8z-I=",
+        "precio": 3500
     }
 ]
