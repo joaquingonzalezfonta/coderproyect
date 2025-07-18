@@ -1,19 +1,15 @@
-// --- Variables DOM ---
 const inputNombre = document.querySelector('#nombre');
 const buttonGuardar = document.querySelector('#guardar');
 const nombreUsuario = document.querySelector('#nombreUsuario');
 const edadInput = document.querySelector('#inputedad');
 const inputPresupuesto = document.querySelector('#presupuesto');
-const inputPasajeros = document.querySelector('#pasajeros');
 const tituloPrincipal = document.querySelector('.principalTitle');
 const container = document.querySelector(".cardsContainer");
 
-// --- Variables globales ---
 let paquetesViajes = [];
 let destinos = ["Canada", "Estados Unidos", "Francia", "Italia", "China", "Portugal", "Brasil"];
 
 
-// --- Cargar paquetes desde JSON al iniciar ---
 fetch('paquetes.json')
     .then(response => response.json())
     .then(data => {
@@ -22,14 +18,11 @@ fetch('paquetes.json')
     })
     .catch(error => console.error("Error al cargar los paquetes:", error));
 
-// --- Persistencia nombre ---
-
 
 buttonGuardar.addEventListener("click", () => {
     const nuevoNombre = inputNombre.value;
     const edad = parseInt(edadInput.value);
     const presupuesto = parseInt(inputPresupuesto.value);
-    const pasajeros = parseInt(inputPasajeros.value);
 
     if (nuevoNombre) {
         localStorage.setItem("Nombre", nuevoNombre);
@@ -38,48 +31,44 @@ buttonGuardar.addEventListener("click", () => {
 
     if (edad) localStorage.setItem("Edad", edad);
     if (presupuesto) localStorage.setItem("Presupuesto", presupuesto);
-    if (pasajeros) localStorage.setItem("Pasajeros", pasajeros);
 
     tituloPrincipal.textContent = "Bien hecho, estas mas cerca del viaje!";
     inputNombre.value = '';
     edadInput.value = '';
     inputPresupuesto.value = '';
-    inputPasajeros.value = '';
 
     if (isNaN(edad)) {
-        console.log("Por favor ingresa una edad válida.");
+        Swal.fire({
+            title: "No valido",
+            text: "Por favor, ingrese una edad valida",
+            icon: "info"
+        });;
         return;
     }
 
     filtroPorPresupuesto(edad, presupuesto);
 
-    if (edad >= 18) {
-        if (isNaN(pasajeros) || pasajeros <= 0) {
-            console.log("Por favor ingresa una cantidad válida de pasajeros.");
-            return;
-        }
-        calcularPrecioPaquetes(paquetesViajes, pasajeros);
-    } else {
-        mostrarDestinos();
-    }
 });
 
 function validarInputs() {
     buttonGuardar.disabled = !(
         inputNombre.value.trim() &&
         edadInput.value.trim() &&
-        inputPresupuesto.value.trim() &&
-        inputPasajeros.value.trim()
+        inputPresupuesto.value.trim() 
     );
 }
 
-[inputNombre, edadInput, inputPresupuesto, inputPasajeros].forEach(input => {
+[inputNombre, edadInput, inputPresupuesto].forEach(input => {
     input.addEventListener('input', validarInputs);
 });
 
 function filtroPorPresupuesto(edad, presupuesto) {
     if (isNaN(presupuesto)) {
-        console.log("Por favor ingrese un presupuesto válido");
+        Swal.fire({
+            title: "No valido",
+            text: "Por favor, ingrese un presupuesto valido",
+            icon: "info"
+        });
         return;
     }
 
@@ -137,26 +126,4 @@ function renderCard(paquete, mostrarDetalles) {
         </div>
     `;
 }
-
-function mostrarDestinos() {
-    destinos.forEach((pais, idx) => console.log(`${idx + 1}. ${pais}`));
-}
-
-function calcularPrecioPaquetes(paquetes, pasajeros) {
-    const resultado = paquetes.map(paquete => ({
-        pais: paquete.pais,
-        precioPorPersona: paquete.precio,
-        pasajeros,
-        precioTotal: paquete.precio * pasajeros
-    }));
-
-    console.table(resultado);
-}
-
-
-
-
-
-
-
 

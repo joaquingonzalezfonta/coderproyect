@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('totalCarritoResumen').textContent = `Total: $${total}`;
     }
 
-
-    // const nombreUsuario = document.getElementById('nombreUsuario');
     const nombreGuardado = localStorage.getItem("Nombre");
     if (nombreGuardado) {
         nombreUsuario.textContent = nombreGuardado;
@@ -153,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.buttonCard').forEach(boton => {
             boton.addEventListener('click', () => {
 
-                // const nombreProducto = contenedor.querySelector('.nombreProducto').textContent.trim();
                 const nombreProducto = boton.closest('.bodyCardContainer').querySelector('.nombreProducto').textContent.trim();
                 const precioElemento = boton.closest('.bodyCardContainer').querySelector('.precioProducto');
                 const precioProducto = precioElemento

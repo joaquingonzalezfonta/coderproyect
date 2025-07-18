@@ -1,10 +1,10 @@
 const contenedor = document.getElementById('contenedor-paquetes');
 
-// Detectamos el continente según el nombre de la página
-const nombrePagina = window.location.pathname.split('/').pop().split('.')[0]; // ej: "america"
-const continenteActual = nombrePagina.charAt(0).toUpperCase() + nombrePagina.slice(1); // "America"
 
-fetch('../paquetes.json')  // Ajustá la ruta según dónde esté el JSON
+const nombrePagina = window.location.pathname.split('/').pop().split('.')[0]; 
+const continenteActual = nombrePagina.charAt(0).toUpperCase() + nombrePagina.slice(1); 
+
+fetch('../paquetes.json')  
     .then(response => response.json())
     .then(paquetes => {
         const paquetesFiltrados = paquetes.filter(p => p.continente === continenteActual);

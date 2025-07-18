@@ -22,67 +22,68 @@
 }
 
 .formSubcontainerCompra {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        text-align: center;
-        padding: 5px 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    text-align: center;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .formContainer {
     display: flex;
     justify-content: center;
 }
-    .formSubcontainer {
-        display: flex;
-        border: 3px solid #235347;
-        background-color: #8eb69b;
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        text-align: center;
-        padding: 5px 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
+
+.formSubcontainer {
+    display: flex;
+    border: 3px solid #235347;
+    background-color: #8eb69b;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    text-align: center;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.formSections {
+    margin-top: 15px;
+
+    label {
+        margin-bottom: 5px;
     }
 
-        .formSections {
-            margin-top: 15px;
+    input {
+        border-radius: 5px;
+        border: 1px solid #235347;
+        padding: 0 3px;
+        font-size: 15px;
+    }
 
-            label {
-                margin-bottom: 5px;
-            }
-
-            input {
-                border-radius: 5px;
-                border: 1px solid #235347;
-                padding: 0 3px;
-                font-size: 15px;
-            }
-
-            select {
-                border-radius: 5px;
-                border: 1px solid #235347;
-                padding: 0 3px;
-                font-size: 15px;
-                cursor: pointer;
-                width: 182.8px;
-                height: 24px;
-                }
+    select {
+        border-radius: 5px;
+        border: 1px solid #235347;
+        padding: 0 3px;
+        font-size: 15px;
+        cursor: pointer;
+        width: 182.8px;
+        height: 24px;
+    }
 
 
-            button {
-                padding: 5px 10px;
-                background-color: #235347;
-                color: white;
-                border-radius: 5px;
-                border: 1px solid #235347;
-                margin: 0 0 10px 0;
-                cursor: pointer;
-            }
-        }
+    button {
+        padding: 5px 10px;
+        background-color: #235347;
+        color: white;
+        border-radius: 5px;
+        border: 1px solid #235347;
+        margin: 0 0 10px 0;
+        cursor: pointer;
+    }
+}
 
 
 
@@ -282,14 +283,14 @@
 }
 
 #cerrar-orden {
-        padding: 5px 10px;
-        background-color: #235347;
-        color: white;
-        border-radius: 5px;
-        border: 1px solid #235347;
-        margin: 0 0 10px 0;
-        cursor: pointer;
-    }
+    padding: 5px 10px;
+    background-color: #235347;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #235347;
+    margin: 0 0 10px 0;
+    cursor: pointer;
+}
 
 #guardar {
     background-color: #235347;
