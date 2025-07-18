@@ -30,7 +30,7 @@ function renderizarPaquetes(paquetes) {
                         <p>
                             Estadia: ${paquete.estadia}<br>
                             Excursión: ${paquete.excursion}<br>
-                            Precio: $${paquete.precio}
+                            Precio: <span class="precioProducto"> $${paquete.precio} </span> 
                         </p>
                     </div>
                     <div class="buttonCardContainer">

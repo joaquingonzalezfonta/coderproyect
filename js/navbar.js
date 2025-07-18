@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaCarrito = document.querySelector("#lista-carrito");
 
 
+
+    function calcularTotalCarrito() {
+        const total = productosEnCarrito.reduce((sum, prod) => {
+            return sum + (prod.precio * prod.cantidad);
+        }, 0);
+
+        document.getElementById('totalCarritoResumen').textContent = `Total: $${total}`;
+    }
+
+
     // const nombreUsuario = document.getElementById('nombreUsuario');
     const nombreGuardado = localStorage.getItem("Nombre");
     if (nombreGuardado) {
@@ -51,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         toggleFinalizarCompra();
+        calcularTotalCarrito();
     }
 
     function eliminarProductoCarrito(nombreProducto, liElement) {
@@ -62,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Swal.fire({ title: "Paquete eliminado", icon: "success" });
 
         toggleFinalizarCompra();
+        calcularTotalCarrito();
     }
 
     function eliminarTodosLosProductosCarrito() {
@@ -74,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         actualizarContador();
         toggleFinalizarCompra();
+        calcularTotalCarrito();
     }
 
     productosEnCarrito.forEach(producto => renderizarProductoEnCarrito(producto));
@@ -142,7 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // const nombreProducto = contenedor.querySelector('.nombreProducto').textContent.trim();
                 const nombreProducto = boton.closest('.bodyCardContainer').querySelector('.nombreProducto').textContent.trim();
-
+                const precioElemento = boton.closest('.bodyCardContainer').querySelector('.precioProducto');
+                const precioProducto = precioElemento
+                    ? parseFloat(precioElemento.textContent.replace('$', ''))
+                    : 0;
                 if (nombreProducto) {
                     const productoExistente = productosEnCarrito.find(p => p.nombre === nombreProducto);
 
@@ -152,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         const nuevoProducto = {
                             nombre: nombreProducto,
+                            precio: precioProducto,
                             cantidad: 1
                         };
                         productosEnCarrito.push(nuevoProducto);
