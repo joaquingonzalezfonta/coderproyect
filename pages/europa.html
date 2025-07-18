@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
     crossorigin="anonymous"></script>
+    <!-- <script defer src="../js/script.js"></script> -->
     <script defer src="../js/navbar.js"></script>
     <script defer src="../js/continentes.js"></script>
 </head>
@@ -57,7 +58,7 @@
             <ul id="lista-carrito"></ul>
             <div class="btnContenedorCarrito">
                 <button id="cerrar-carrito">Cerrar</button>
-                <button id="finalizar-compra">Finalizar compra</button>
+                <button id="finalizar-compra" class="finalizarCompra">Finalizar compra</button>
             </div>
         </div>
 
@@ -65,10 +66,52 @@
 
         <div id="compra" class="oculto">
             <h2 class="tituloCarrito"> Finzalizar Compra </h2>
-            <ul id="lista-carrito"></ul>
+            <div class="formContainer">
+                <div class="formSubcontainerCompra">
+                    <div class="formSections">
+                        <div class="labelContainer">
+                            <label for="name"> Nombre </label>
+                        </div>
+                        <div class="inputContainer">
+                            <input id="name" required name="name" type="text">
+                        </div>
+                    </div>
+                    <div class="formSections">
+                        <div class="labelContainer">
+                            <label for="mail"> Email </label>
+                        </div>
+                        <div class="inputContainer">
+                            <input id="mail" required name="mail" type="text">
+                        </div>
+                    </div>
+                    <div class="formSections">
+                        <div class="labelContainer">
+                            <label for="number"> Numero de telefono </label>
+                        </div>
+                        <div class="inputContainer">
+                            <input id="number" required name="number" type="number">
+                        </div>
+                    </div>
+                    <div class="formSections">
+                        <div class="labelContainer">
+                            <label for="metodo"> Metodo de pago </label>
+                        </div>
+                        <div class="inputContainer">
+                            <select name="metodo" required id="metodo">
+                                <option value="tarjetaDebito">Tarjeta de debito</option>
+                                <option value="tarjetaDebito">Tarjeta de credito</option>
+                                <option value="tarjetaDebito">Transferencia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p id="totalCarrito"></p>
+            </div>
             <div class="btnContenedorCarrito">
                 <button id="cerrar-orden">Cerrar</button>
-                <button id="finalizar-compra">Finalizar compra</button>
+                <button id="pagoDefinitivo" disabled class="finalizarCompra">Finalizar compra</button>
             </div>
         </div>
 </body>
