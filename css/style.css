@@ -85,6 +85,13 @@
     }
 }
 
+.tituloContinentes {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+    color: #235347;
+}
+
 
 
 /* ------------- Nav Bar ---------- */
