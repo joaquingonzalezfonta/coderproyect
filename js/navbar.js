@@ -1,5 +1,6 @@
 let productosEnCarrito = JSON.parse(localStorage.getItem("productoCarrito")) || [];
 
+// const nombreUsuario = document.getElementById('nombreUsuario');
 const nombreGuardado = localStorage.getItem("Nombre");
 if (nombreGuardado) {
     nombreUsuario.textContent = nombreGuardado;
@@ -18,7 +19,10 @@ function renderizarProductoEnCarrito(producto) {
         li = document.createElement("li");
         li.setAttribute('data-product', producto.nombre);
 
-        li.innerHTML = `${producto.nombre} - Cantidad: <span class="cantidad">${producto.cantidad}</span> <button class="buttonCart">Eliminar</button>`;
+        li.innerHTML = `
+            <div>${producto.nombre} x<span class="cantidad">${producto.cantidad}</span></div>
+            <button class="buttonCart">Borrar</button>
+        `;
 
         li.querySelector('.buttonCart').addEventListener('click', () => eliminarProductoCarrito(producto.nombre, li));
         listaCarrito.appendChild(li);
@@ -36,6 +40,18 @@ function eliminarProductoCarrito(nombreProducto, liElement) {
     Swal.fire({ title: "Paquete eliminado", icon: "success" });
 }
 
+function eliminarTodosLosProductosCarrito() {
+    productosEnCarrito = [];
+    localStorage.setItem('productoCarrito', JSON.stringify(productosEnCarrito));
+
+    const listaCarrito = document.querySelector('#lista-carrito');
+    if (listaCarrito) {
+        listaCarrito.innerHTML = '';
+    }
+
+    actualizarContador();
+}
+
 productosEnCarrito.forEach(producto => renderizarProductoEnCarrito(producto));
 actualizarContador();
 
@@ -43,6 +59,12 @@ const btnCarrito = document.getElementById('btn-carrito');
 const carrito = document.getElementById('carrito');
 const overlay = document.getElementById('overlay');
 const cerrarCarrito = document.getElementById('cerrar-carrito');
+const finzalizarButton = document.getElementById('finalizar-compra')
+const compraContenedor = document.getElementById('compra')
+const cerrarOrden = document.getElementById('cerrar-orden')
+const overlayCompra = document.getElementById('overlayCompra')
+const pagoDefinitivo = document.getElementById('pagoDefinitivo')
+
 
 btnCarrito.addEventListener('click', () => {
     carrito.classList.remove('oculto');
@@ -57,9 +79,53 @@ function cerrarCarritoOverlay() {
     overlay.classList.add('oculto');
 }
 
+finzalizarButton.addEventListener('click', () => {
+    compraContenedor.classList.remove('oculto');
+    overlayCompra.classList.remove('oculto');
+});
+
+cerrarOrden.addEventListener('click', cerrarCompraOverlay);
+overlay.addEventListener('click', cerrarCompraOverlay);
+
+function cerrarCompraOverlay() {
+    compraContenedor.classList.add('oculto');
+    overlayCompra.classList.add('oculto');
+}
+
+pagoDefinitivo.addEventListener('click', () => {
+    eliminarTodosLosProductosCarrito()
+    cerrarCompraOverlay()
+    cerrarCarritoOverlay()
+
+    Swal.fire({
+        title: "Compra exitosa",
+        icon: "success",
+        draggable: true
+    });
+})
+
+
+const nameInput = document.getElementById('name')
+const mail = document.getElementById('mail')
+const number = document.getElementById('number')
+
+function validarInputsCompra() {
+    pagoDefinitivo.disabled = !(
+        nameInput.value.trim() &&
+        mail.value.trim() &&
+        number.value.trim()
+    );
+}
+
+[nameInput, mail, number].forEach(input => {
+    input.addEventListener('input', validarInputsCompra);
+});
+
 function activarBotonesAgregar() {
     document.querySelectorAll('.buttonCard').forEach(boton => {
         boton.addEventListener('click', () => {
+
+            // const nombreProducto = contenedor.querySelector('.nombreProducto').textContent.trim();
             const nombreProducto = boton.closest('.bodyCardContainer').querySelector('.nombreProducto').textContent.trim();
 
             if (nombreProducto) {
@@ -69,13 +135,15 @@ function activarBotonesAgregar() {
                     productoExistente.cantidad++;
                     renderizarProductoEnCarrito(productoExistente);
                 } else {
-                    const nuevoProducto = { nombre: nombreProducto, cantidad: 1 };
+                    const nuevoProducto = {
+                        nombre: nombreProducto,
+                        cantidad: 1
+                    };
                     productosEnCarrito.push(nuevoProducto);
                     renderizarProductoEnCarrito(nuevoProducto);
                 }
 
                 localStorage.setItem('productoCarrito', JSON.stringify(productosEnCarrito));
-                renderizarProductoEnCarrito(productoExistente || { nombre: nombreProducto, cantidad: 1 });
                 actualizarContador();
 
                 Toastify({
